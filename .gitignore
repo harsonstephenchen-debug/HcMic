@@ -8,3 +8,6 @@ build/
 local.properties
 android/.idea/
 android/app/build/
+
+installer/trimmed/
+*.apk
