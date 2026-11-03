@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sample_rates">
+        <item>48000</item>
+        <item>44100</item>
+        <item>16000</item>
+    </string-array>
+    <string-array name="channels">
+        <item>单声道</item>
+        <item>立体声</item>
+    </string-array>
+    <string-array name="latency">
+        <item>低延迟（20ms 块，需好网络）</item>
+        <item>中延迟（50ms 块，推荐）</item>
+        <item>高稳定（100ms 块）</item>
+    </string-array>
+</resources>

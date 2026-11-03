@@ -1,0 +1,10 @@
+﻿bin/
+obj/
+publish/
+installer/installer/
+*.user
+.gradle/
+build/
+local.properties
+android/.idea/
+android/app/build/

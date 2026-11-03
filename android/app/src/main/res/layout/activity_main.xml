@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:padding="16dp"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView android:text="HcMic — 手机麦克风" android:textSize="20sp" android:textStyle="bold"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+    <RadioGroup android:id="@+id/modeGroup" android:orientation="horizontal"
+        android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12dp">
+        <RadioButton android:id="@+id/modeWifi" android:text="WiFi" android:checked="true"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <RadioButton android:id="@+id/modeUsb" android:text="USB"
+            android:layout_marginStart="16dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <RadioButton android:id="@+id/modeBt" android:text="蓝牙"
+            android:layout_marginStart="16dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    </RadioGroup>
+
+    <EditText android:id="@+id/pcAddress" android:hint="电脑 IP（WiFi 模式可留空=监听）"
+        android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="text"/>
+    <EditText android:id="@+id/port" android:hint="端口 51001" android:text="51001"
+        android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number"/>
+
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TextView android:text="采样率" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical"/>
+        <Spinner android:id="@+id/sampleRate" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+            android:entries="@array/sample_rates"/>
+        <TextView android:text="声道" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical"/>
+        <Spinner android:id="@+id/channels" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+            android:entries="@array/channels"/>
+    </LinearLayout>
+
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp">
+        <TextView android:text="延迟" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical"/>
+        <Spinner android:id="@+id/latency" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+            android:entries="@array/latency"/>
+    </LinearLayout>
+
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp">
+        <Button android:id="@+id/btnStart" android:text="开始推流" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"/>
+        <Button android:id="@+id/btnStop" android:text="停止" android:enabled="false" android:layout_marginStart="8dp"
+            android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>
