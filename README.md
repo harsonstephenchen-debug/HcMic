@@ -1,6 +1,6 @@
-﻿# HcMic
+# HcMic
 
-把 Android 手机变成电脑的虚拟麦克风（WO Mic 的开源复刻）。
+把 Android 手机变成电脑的虚拟麦克风。
 
 ## 组成
 - **pc/** — Windows 客户端（C# WinForms, .NET 8）

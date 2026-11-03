@@ -14,7 +14,7 @@ namespace HcMic.Core
         public string DeviceName { get; private set; }
         public bool UsingVirtualDevice { get; private set; }
 
-        private static readonly string[] VirtualNames = { "CABLE Input", "VB-Audio Virtual Cable", "Scream (Virtual Audio Cable)", "Virtual Audio Cable", "WO Mic Device" };
+        private static readonly string[] VirtualNames = { "CABLE Input", "VB-Audio Virtual Cable", "Scream (Virtual Audio Cable)", "Virtual Audio Cable" };
 
         public static MMDevice FindVirtualDevice()
         {

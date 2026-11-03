@@ -1,6 +1,4 @@
-// 生成 HcMic 图标：麦克风矢量图形（256/64/32/16 多尺寸 ICO）
-// 用 System.Drawing 逐尺寸绘制：渐变底 + 白色麦克风
-using System;
+﻿// 鐢熸垚 HcMic 鍥炬爣锛氶害鍏嬮鐭㈤噺鍥惧舰锛?56/64/32/16 澶氬昂瀵?ICO锛?// 鐢?System.Drawing 閫愬昂瀵哥粯鍒讹細娓愬彉搴?+ 鐧借壊楹﹀厠椋?using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
@@ -9,7 +7,7 @@ class IconGen
 {
     static void Main()
     {
-        string outPath = @"E:\Software\WO-Mic-Clone\pc\installer\icon.ico";
+        string outPath = @"installer\icon.ico";
         int[] sizes = { 256, 64, 48, 32, 16 };
         using var msList = new MemoryStream();
         var pngs = new MemoryStream[sizes.Length];
@@ -20,23 +18,22 @@ class IconGen
             using (var g = Graphics.FromImage(bmp))
             {
                 g.SmoothingMode = SmoothingMode.AntiAlias;
-                // 圆角方形背景（紫色渐变）
+                // 鍦嗚鏂瑰舰鑳屾櫙锛堢传鑹叉笎鍙橈級
                 using var path = RoundRect(0, 0, s, s, s * 0.18f);
                 using var brush = new LinearGradientBrush(new Rectangle(0, 0, s, s),
                     Color.FromArgb(99, 102, 241), Color.FromArgb(67, 56, 202), 90f);
                 g.FillPath(brush, path);
 
-                float u = s / 64f; // 单位
+                float u = s / 64f; // 鍗曚綅
                 using var white = new SolidBrush(Color.White);
-                // 麦克风胶囊
-                using var caps = RoundRect(24 * u, 10 * u, 16 * u, 26 * u, 8 * u);
+                // 楹﹀厠椋庤兌鍥?                using var caps = RoundRect(24 * u, 10 * u, 16 * u, 26 * u, 8 * u);
                 g.FillPath(white, caps);
-                // 支架弧线
+                // 鏀灦寮х嚎
                 using var pen = new Pen(Color.White, 3.2f * u) { StartCap = LineCap.Round, EndCap = LineCap.Round };
                 g.DrawArc(pen, 17 * u, 18 * u, 30 * u, 30 * u, -20, 220);
-                // 支杆
+                // 鏀潌
                 g.DrawLine(pen, 32 * u, 48 * u, 32 * u, 56 * u);
-                // 底座
+                // 搴曞骇
                 g.DrawLine(pen, 22 * u, 56 * u, 42 * u, 56 * u);
             }
             var ms = new MemoryStream();
@@ -44,8 +41,7 @@ class IconGen
             pngs[i] = ms;
         }
 
-        // 写 ICO 容器（PNG 压缩条目）
-        using var fs = new FileStream(outPath, FileMode.Create);
+        // 鍐?ICO 瀹瑰櫒锛圥NG 鍘嬬缉鏉＄洰锛?        using var fs = new FileStream(outPath, FileMode.Create);
         using var bw = new BinaryWriter(fs);
         bw.Write((ushort)0); bw.Write((ushort)1); bw.Write((ushort)sizes.Length);
         uint offset = 6 + (uint)(16 * sizes.Length);
