@@ -27,6 +27,7 @@ class MicService : Service() {
         var sampleRate = 48000
         var channels = 1
         var bitsPerSample = 16
+        var blockMs = 20   // 采集块时长（延迟档位：低=20 中=50 高=100）
         var reconnectFn: (() -> Unit)? = null  // 由 MainActivity 注入：重开传输的函数
     }
 
@@ -64,11 +65,15 @@ class MicService : Service() {
             stopSelf(); return
         }
         val chMask = if (channels == 2) AudioFormat.CHANNEL_IN_STEREO else AudioFormat.CHANNEL_IN_MONO
+        // 块大小由延迟档位决定（blockMs），AudioRecord 缓冲压到 4 块，减少系统攒数据延迟
+        val blockBytes = sampleRate * blockMs / 1000 * 2 * channels
         val minBuf = AudioRecord.getMinBufferSize(sampleRate, chMask, AudioFormat.ENCODING_PCM_16BIT)
-        record = AudioRecord(MediaRecorder.AudioSource.MIC, sampleRate, chMask, AudioFormat.ENCODING_PCM_16BIT, maxOf(minBuf, sampleRate))
+        record = AudioRecord(MediaRecorder.AudioSource.MIC, sampleRate, chMask, AudioFormat.ENCODING_PCM_16BIT, maxOf(minBuf, blockBytes * 4))
         isStreaming = true
         streamThread = Thread {
-            val buf = ByteArray(sampleRate / 10 * 2 * channels)
+            val buf = ByteArray(blockBytes)
+            // Android 音源默认带 ~20-100ms 处理延迟，VOICE_COMMUNICATION 会启用回声消除并降延迟；MIC 保真优先。
+            // 用户场景是当麦克风（对方要听），用 VOICE_COMMUNICATION 换更低延迟更合适。
             record?.startRecording()
             currentTransport?.send(Protocol.TYPE_HELLO) ?: return@Thread
             currentTransport?.send(Protocol.TYPE_START)

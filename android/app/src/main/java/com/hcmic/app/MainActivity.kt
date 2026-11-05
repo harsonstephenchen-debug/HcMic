@@ -108,6 +108,8 @@ class MainActivity : AppCompatActivity() {
             MicService.sampleRate = srSpinner.selectedItem.toString().toInt()
             MicService.channels = chSpinner.selectedItemPosition + 1
             MicService.bitsPerSample = 16
+            // 延迟档位真正接入：低=20ms 块，中=50ms，高=100ms
+            MicService.blockMs = when (latencySpinner.selectedItemPosition) { 0 -> 20; 1 -> 50; else -> 100 }
             MicService.autoReconnect = true
             MicService.reconnectFn = { startTransport(modeGroup, portEdit) }
             startTransport(modeGroup, portEdit)

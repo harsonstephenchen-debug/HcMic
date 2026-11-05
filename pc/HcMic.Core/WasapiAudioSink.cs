@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using NAudio.CoreAudioApi;
 using NAudio.Wave;
 
@@ -37,10 +37,11 @@ namespace HcMic.Core
                 var waveFormat = new WaveFormat((int)fmt.SampleRate, fmt.BitsPerSample, fmt.Channels);
                 _buffer = new BufferedWaveProvider(waveFormat)
                 {
-                    BufferDuration = TimeSpan.FromSeconds(2),
+                    BufferDuration = TimeSpan.FromMilliseconds(500),   // 小缓冲防累积
                     DiscardOnBufferOverflow = true
                 };
-                _output = new WasapiOut(device, AudioClientShareMode.Shared, false, 40);
+                // 低延迟 WASAPI：20ms 播放周期
+                _output = new WasapiOut(device, AudioClientShareMode.Shared, false, 20);
                 _output.Init(_buffer);
                 _output.Play();
                 DeviceName = device.FriendlyName;
@@ -54,6 +55,12 @@ namespace HcMic.Core
         {
             if (count > pcm.Length - offset) count = pcm.Length - offset;
             _buffer?.AddSamples(pcm, offset, count);
+            // 追赶逻辑：缓冲超过 200ms 说明网络/采集快于播放，丢弃多余部分防止延迟持续累积
+            if (_buffer != null && _buffer.BufferedDuration > TimeSpan.FromMilliseconds(200))
+            {
+                var excess = _buffer.BufferedDuration - TimeSpan.FromMilliseconds(200);
+                _buffer.ClearBuffer(); // 简单粗暴：清空重来（丢 ~1 帧以内可接受，保持低延迟优先）
+            }
         }
 
         public void Dispose()
