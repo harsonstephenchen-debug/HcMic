@@ -45,7 +45,6 @@ class BluetoothTransport : Transport {
         // Android 蓝牙连接常见瞬时失败，重试 3 次并做 fallback 通道
         for (attempt in 1..3) {
             val sock = try {
-                // 先走标准 createRfcommSocketToServiceRecord；失败后用反射 fallback 通道
                 if (attempt < 3) pc.createRfcommSocketToServiceRecord(uuid)
                 else {
                     try { pc.javaClass.getMethod("createRfcommSocket", Int::class.javaPrimitiveType).invoke(pc, 1) as android.bluetooth.BluetoothSocket }

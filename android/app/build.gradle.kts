@@ -1,4 +1,4 @@
-// HcMic Android 端
+// HcMic Android
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -11,8 +11,8 @@ android {
         applicationId = "com.hcmic.app"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.1"
     }
     buildTypes {
         release {

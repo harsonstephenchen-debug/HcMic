@@ -34,7 +34,7 @@ namespace HcMic
             var mHelp = new ToolStripMenuItem("帮助");
             mSettings.DropDownItems.Add(new ToolStripMenuItem("设置…", null, (s, e) => ShowSettings()));
             mHelp.DropDownItems.Add(new ToolStripMenuItem("关于 HcMic…", null, (s, e) =>
-                MessageBox.Show("HcMic Client v1.0\r\n把手机麦克风变成电脑的虚拟麦克风。\r\n支持 WiFi / USB / 蓝牙传输。", "关于 HcMic",
+                MessageBox.Show("HcMic Client v1.1\r\n把手机麦克风变成电脑的虚拟麦克风。\r\n支持 WiFi / USB / 蓝牙传输。", "关于 HcMic",
                     MessageBoxButtons.OK, MessageBoxIcon.Information)));
             _menu.Items.AddRange(new ToolStripItem[] { mSettings, mHelp });
             MainMenuStrip = _menu;

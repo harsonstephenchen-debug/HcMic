@@ -3,7 +3,7 @@
     android:orientation="vertical" android:padding="16dp"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView android:text="HcMic — 手机麦克风" android:textSize="20sp" android:textStyle="bold"
+    <TextView android:text="HcMic — 手机麦克风 v1.1" android:textSize="20sp" android:textStyle="bold"
         android:layout_width="wrap_content" android:layout_height="wrap_content"/>
 
     <RadioGroup android:id="@+id/modeGroup" android:orientation="horizontal"
